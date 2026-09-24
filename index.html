@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rinbow Game Studio - Colorful Games for Everyone</title>
+    <style>
+        :root {
+            --bg: #fbfbfe;
+            --ink: #14162a;
+            --muted: #646a85;
+            --border: #e8e9f3;
+            --card: #ffffff;
+            --rainbow: linear-gradient(90deg, #6366f1 0%, #a855f7 25%, #ec4899 50%, #f97316 75%, #facc15 100%);
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "PingFang SC", "Microsoft YaHei", sans-serif;
+            background: var(--bg);
+            color: var(--ink);
+            line-height: 1.72;
+            -webkit-font-smoothing: antialiased;
+        }
+        .topbar { height: 4px; background: var(--rainbow); }
+        .wrap { max-width: 1020px; margin: 0 auto; padding: 0 28px; }
+
+        nav { display: flex; align-items: center; justify-content: space-between; padding: 24px 0; }
+        .logo { display: inline-flex; align-items: center; gap: 10px; font-size: 17px; font-weight: 800; letter-spacing: 0.3px; }
+        .logo .mark { width: 26px; height: 26px; border-radius: 8px; background: var(--rainbow); display: inline-block; }
+        .nav-links a { color: var(--muted); text-decoration: none; font-size: 14px; font-weight: 500; margin-left: 30px; transition: color .2s; }
+        .nav-links a:hover { color: #a855f7; }
+
+        .hero { padding: 72px 0 64px; }
+        .badge { display: inline-flex; align-items: center; gap: 8px; font-size: 12px; font-weight: 700; letter-spacing: 1.6px; color: #6d28d9; border: 1px solid #ddd6fe; background: #f5f3ff; padding: 6px 16px; border-radius: 999px; margin-bottom: 24px; }
+        h1 { font-size: clamp(38px, 6vw, 60px); font-weight: 800; line-height: 1.07; letter-spacing: -1.2px; margin-bottom: 22px; color: #14162a; }
+        h1 .rb {
+            background: var(--rainbow);
+            -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+        }
+        .hero p.lede { font-size: 18px; color: var(--muted); max-width: 620px; margin-bottom: 30px; }
+        .cta { display: inline-flex; gap: 14px; }
+        a.btn { padding: 13px 28px; border-radius: 12px; font-weight: 700; font-size: 14px; text-decoration: none; transition: transform .16s, box-shadow .2s, border-color .2s; }
+        a.btn.solid { background: var(--rainbow); color: #fff; box-shadow: 0 10px 28px rgba(168,85,247,.28); }
+        a.btn.solid:hover { transform: translateY(-2px); }
+        a.btn.ghost { border: 1px solid var(--border); color: var(--ink); background: #fff; }
+        a.btn.ghost:hover { border-color: #a855f7; }
+
+        section { padding: 52px 0; border-top: 1px solid var(--border); }
+        .tag { font-size: 12px; font-weight: 700; letter-spacing: 2.4px; text-transform: uppercase; margin-bottom: 10px; background: var(--rainbow); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+        h2 { font-size: 28px; font-weight: 800; letter-spacing: -0.4px; margin-bottom: 16px; }
+        section > p.lead { color: var(--muted); font-size: 16px; max-width: 630px; margin-bottom: 26px; }
+
+        .about-row { padding: 18px 0; border-bottom: 1px solid var(--border); }
+        .about-row:last-child { border-bottom: none; }
+        .about-row strong { display: block; font-size: 16px; margin-bottom: 4px; }
+        .about-row span { font-size: 14px; color: var(--muted); }
+
+        .game { padding: 22px 0; border-bottom: 1px solid var(--border); }
+        .game:last-child { border-bottom: none; }
+        .game-name { font-size: 19px; font-weight: 700; margin-bottom: 6px; display: flex; align-items: center; gap: 10px; }
+        .status { font-size: 11px; font-weight: 700; padding: 3px 12px; border-radius: 999px; letter-spacing: .5px; }
+        .status.live { color: #047857; background: #ecfdf5; border: 1px solid #a7f3d0; }
+        .status.soon { color: #b45309; background: #fffbeb; border: 1px solid #fde68a; }
+        .game-desc { font-size: 14px; color: var(--muted); }
+
+        .values { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+        @media (max-width: 620px) { .values { grid-template-columns: 1fr; } }
+        .value { padding: 22px; background: var(--card); border: 1px solid var(--border); border-radius: 16px; position: relative; overflow: hidden; transition: transform .2s, box-shadow .2s; }
+        .value::before { content: ""; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--rainbow); }
+        .value:hover { transform: translateY(-3px); box-shadow: 0 14px 30px rgba(20,22,42,.08); }
+        .value .n { font-size: 12px; font-weight: 800; margin-bottom: 8px; color: #a855f7; letter-spacing: 1px; }
+        .value-title { font-size: 16px; font-weight: 700; margin-bottom: 6px; }
+        .value-desc { font-size: 14px; color: var(--muted); }
+
+        .update { padding: 16px 0; border-bottom: 1px solid var(--border); }
+        .update:last-child { border-bottom: none; }
+        .update-date { font-size: 12px; font-weight: 700; color: #a855f7; letter-spacing: .5px; }
+        .update-text { font-size: 15px; color: #3b3f57; }
+
+        .faq { padding: 16px 0; border-bottom: 1px solid var(--border); }
+        .faq:last-child { border-bottom: none; }
+        .faq-q { font-size: 16px; font-weight: 600; margin-bottom: 4px; }
+        .faq-a { font-size: 14px; color: var(--muted); }
+
+        .contact-block { margin-top: 20px; padding: 26px; border-radius: 16px; background: var(--card); border: 1px solid var(--border); position: relative; overflow: hidden; }
+        .contact-block::before { content: ""; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--rainbow); }
+        .contact-line { font-size: 15px; color: #3b3f57; margin-bottom: 8px; }
+        .contact-line a { color: #a855f7; text-decoration: none; font-weight: 600; }
+        .contact-line a:hover { text-decoration: underline; }
+
+        footer { padding: 42px 0 54px; color: var(--muted); font-size: 13px; margin-top: 8px; border-top: 1px solid var(--border); }
+        .footer-links { margin-bottom: 10px; }
+        .footer-links a { color: var(--muted); text-decoration: none; margin-right: 22px; }
+        .footer-links a:hover { color: #a855f7; }
+
+        @media (max-width: 640px) {
+            .nav-links a { margin-left: 15px; font-size: 13px; }
+            .hero { padding: 52px 0 48px; }
+            .cta { flex-direction: column; }
+        }
+    </style>
+</head>
+<body>
+    <div class="topbar"></div>
+    <div class="wrap">
+        <nav>
+            <div class="logo"><span class="mark"></span><span>RINBOW GAME STUDIO</span></div>
+            <div class="nav-links">
+                <a href="#about">About</a>
+                <a href="#games">Games</a>
+                <a href="#values">Values</a>
+                <a href="#updates">Updates</a>
+                <a href="#faq">FAQ</a>
+                <a href="#contact">Contact</a>
+            </div>
+        </nav>
+
+        <header class="hero">
+            <div class="badge">✦ INDEPENDENT GAME STUDIO</div>
+            <h1>Games in every<br><span class="rb">color of fun.</span></h1>
+            <p class="lede">Rinbow Game Studio is an independent developer creating bright, joyful games that bring a little color to every player's day.</p>
+            <div class="cta">
+                <a class="btn solid" href="#games">Explore our games</a>
+                <a class="btn ghost" href="#contact">Get in touch</a>
+            </div>
+        </header>
+
+        <section id="about">
+            <div class="tag">About Us</div>
+            <h2>Who we are</h2>
+            <p class="lead">Rinbow Game Studio makes games that feel good. We mix cheerful art, satisfying gameplay and a splash of color into experiences anyone can enjoy.</p>
+            <div class="about-row"><strong>Our Mission</strong><span>To create joyful, high-quality games that brighten the everyday.</span></div>
+            <div class="about-row"><strong>Our Approach</strong><span>Colorful design, satisfying loops, and careful polish on every release.</span></div>
+            <div class="about-row"><strong>Our Audience</strong><span>Players of all ages looking for fun, friendly, easy-to-love games.</span></div>
+        </section>
+
+        <section id="games">
+            <div class="tag">Our Games</div>
+            <h2>What we've made</h2>
+            <div class="game">
+                <div class="game-name">Shadow Ply <span class="status live">Live</span></div>
+                <div class="game-desc">Our flagship title — a colorful, satisfying game built for quick and joyful sessions.</div>
+            </div>
+            <div class="game">
+                <div class="game-name">More titles <span class="status soon">In Development</span></div>
+                <div class="game-desc">New colorful games are on the way. Stay tuned for the next release.</div>
+            </div>
+        </section>
+
+        <section id="values">
+            <div class="tag">What We Believe</div>
+            <h2>Our values</h2>
+            <div class="values">
+                <div class="value"><div class="n">01</div><div class="value-title">Color &amp; Joy</div><div class="value-desc">Bright visuals and cheerful moments in everything we make.</div></div>
+                <div class="value"><div class="n">02</div><div class="value-title">Fun for Everyone</div><div class="value-desc">Simple to pick up, welcoming to every kind of player.</div></div>
+                <div class="value"><div class="n">03</div><div class="value-title">Feel-Good Design</div><div class="value-desc">Satisfying feedback and gameplay that just feels right.</div></div>
+                <div class="value"><div class="n">04</div><div class="value-title">Made with Care</div><div class="value-desc">We polish every detail so each game is a pleasure to play.</div></div>
+            </div>
+        </section>
+
+        <section id="updates">
+            <div class="tag">News &amp; Updates</div>
+            <h2>What's new</h2>
+            <div class="update"><div class="update-date">2026 · September</div><div class="update-text">Shadow Ply is live — jump in and start playing today.</div></div>
+            <div class="update"><div class="update-date">2026 · August</div><div class="update-text">The studio is growing. New colorful titles are in development.</div></div>
+        </section>
+
+        <section id="faq">
+            <div class="tag">FAQ</div>
+            <h2>Common questions</h2>
+            <div class="faq"><div class="faq-q">Are your games free to play?</div><div class="faq-a">Yes — free to download and play, supported by optional ads and in-game purchases.</div></div>
+            <div class="faq"><div class="faq-q">Do you collect my personal data?</div><div class="faq-a">Only the minimum needed to run and improve our games. See our Privacy Policy for details.</div></div>
+            <div class="faq"><div class="faq-q">Can I partner or collaborate with you?</div><div class="faq-a">We're always happy to hear from players and partners — reach out below.</div></div>
+            <div class="faq"><div class="faq-q">How do I report a problem?</div><div class="faq-a">Email us and we'll look into it as soon as we can. Your feedback makes our games better.</div></div>
+        </section>
+
+        <section id="contact">
+            <div class="tag">Contact</div>
+            <h2>Get in touch</h2>
+            <p class="lead">Questions, feedback, or business inquiries — we'd love to hear from you.</p>
+            <div class="contact-block">
+                <div class="contact-line">Rinbow Game Studio</div>
+                <div class="contact-line">Email: <a href="mailto:syncast124@gmail.com">syncast124@gmail.com</a></div>
+            </div>
+        </section>
+
+        <footer>
+            <div class="footer-links">
+                <a href="/privacy">Privacy Policy</a>
+                <a href="/terms">Terms of Service</a>
+            </div>
+            <div>&copy; 2026 Rinbow Game Studio. All rights reserved.</div>
+        </footer>
+    </div>
+</body>
+</html>
